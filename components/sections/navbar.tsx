@@ -40,10 +40,11 @@ export default function Navbar() {
           <Link href="/" className="flex items-center space-x-3 group">
             <div className="relative w-30 h-30">
               <Image
-                src="/images/logo.png"
+                src="https://res.cloudinary.com/dfgtpljtq/image/upload/v1768739961/logo_xmvx7t.png"
                 alt="Shree Durvankur Greens"
                 fill
                 className="object-contain"
+                priority
               />
             </div>
             <div className="flex flex-col">

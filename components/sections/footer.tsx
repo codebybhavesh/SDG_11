@@ -1,4 +1,5 @@
 import Link from "next/link";
+import Image from "next/image";
 import { Facebook, Instagram, Twitter, Phone, Mail, MapPin } from "lucide-react";
 
 export default function Footer() {
@@ -8,10 +9,20 @@ export default function Footer() {
         <div className="grid grid-cols-1 md:grid-cols-4 gap-8">
           {/* Company Info */}
           <div className="space-y-4">
-            <h3 className="text-white text-xl font-bold">
+            <div className="flex justify-center">
+              <div className="relative w-40 h-40">
+                <Image
+                  src="https://res.cloudinary.com/dfgtpljtq/image/upload/v1768739961/logo_xmvx7t.png"
+                  alt="Shree Durvankur Greens"
+                  fill
+                  className="object-contain"
+                />
+              </div>
+            </div>
+            <h3 className="text-white text-2xl font-bold text-center">
               Shree Durvankur Greens
             </h3>
-            <p className="text-sm">
+            <p className="text-sm text-center">
               Your trusted partner for healthy plants, expert gardening services,
               and quality equipment.
             </p>
