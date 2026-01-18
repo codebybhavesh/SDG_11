@@ -193,4 +193,53 @@
       0 20px 25px -5px rgba(0, 0, 0, 0.1),
       0 10px 10px -5px rgba(0, 0, 0, 0.04);
   }
+  
+  /* Mobile-specific card stacking improvements */
+  @media (max-width: 768px) {
+    .mobile-card-stack {
+      height: 400px !important;
+    }
+    
+    .mobile-card {
+      width: 260px !important;
+      height: 320px !important;
+      border-radius: 1rem !important;
+    }
+    
+    .mobile-card-transform-0 {
+      transform: translateX(0) translateY(0) rotate(0deg) scale(1) !important;
+    }
+    
+    .mobile-card-transform-1 {
+      transform: translateX(15px) translateY(12px) rotate(4deg) scale(0.96) !important;
+    }
+    
+    .mobile-card-transform-2 {
+      transform: translateX(30px) translateY(24px) rotate(8deg) scale(0.92) !important;
+    }
+    
+    .mobile-card-transform-hidden {
+      transform: translateX(45px) translateY(36px) rotate(12deg) scale(0.88) !important;
+      opacity: 0 !important;
+    }
+  }
+  
+  /* Touch-friendly navigation controls */
+  .touch-control {
+    touch-action: manipulation;
+    -webkit-tap-highlight-color: transparent;
+  }
+  
+  .touch-control:active {
+    transform: scale(0.95);
+    transition: transform 0.1s ease;
+  }
+  
+  /* Prevent text selection on interactive elements */
+  .no-select {
+    -webkit-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
+  }
 }

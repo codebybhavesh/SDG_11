@@ -78,8 +78,8 @@ export default function HeroSection() {
         ></div>
       </div>
 
-      {/* img6.png overlay from right edge */}
-      <div className="absolute inset-y-0 right-0 z-[20] flex items-center" style={{ transform: 'translateY(7%) translateX(3%) rotate(7deg)' }}>
+      {/* img6.png overlay from right edge - Mobile responsive */}
+      <div className="absolute inset-y-0 right-0 z-[20] flex items-center hidden sm:block" style={{ transform: 'translateY(7%) translateX(3%) rotate(7deg)' }}>
         <div className="relative h-full" style={{ width: '38vw' }}>
           <Image
             src="/images/img6.png"
@@ -90,10 +90,10 @@ export default function HeroSection() {
         </div>
       </div>
 
-      {/* Large glassmorphism panel */}
-      <div className="relative z-10 w-full max-w-7xl mx-auto px-6">
+      {/* Large glassmorphism panel - Mobile responsive */}
+      <div className="relative z-10 w-full max-w-7xl mx-auto px-4 sm:px-6">
         <div
-          className={`backdrop-blur-xl bg-green-800/30 rounded-[60px] p-16 transition-all duration-1000 ${
+          className={`backdrop-blur-xl bg-green-800/30 rounded-[30px] sm:rounded-[40px] md:rounded-[60px] p-6 sm:p-8 md:p-12 lg:p-16 transition-all duration-1000 ${
             isVisible ? "opacity-100 scale-100" : "opacity-0 scale-95"
           }`}
           style={{
@@ -102,11 +102,11 @@ export default function HeroSection() {
           }}
         >
           {/* Layout with content on left and image on right */}
-          <div className="flex items-center gap-12">
+          <div className="flex flex-col md:flex-row items-center gap-8 md:gap-12">
             {/* Left side - Main content */}
-            <div className="flex-1 max-w-3xl">
+            <div className="flex-1 w-full max-w-3xl">
             <h1
-              className={`text-5xl md:text-6xl lg:text-7xl font-bold text-white drop-shadow-lg mb-4 leading-tight transition-all duration-700 delay-400 whitespace-nowrap ${
+              className={`text-3xl sm:text-4xl md:text-5xl lg:text-6xl xl:text-7xl font-bold text-white drop-shadow-lg mb-3 sm:mb-4 leading-tight transition-all duration-700 delay-400 ${
                 isVisible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-4"
               }`}
             >
@@ -114,7 +114,7 @@ export default function HeroSection() {
             </h1>
 
             <h2
-              className={`text-2xl md:text-3xl text-white/90 drop-shadow-md mb-6 transition-all duration-700 delay-500 ${
+              className={`text-xl sm:text-2xl md:text-3xl text-white/90 drop-shadow-md mb-4 sm:mb-6 transition-all duration-700 delay-500 ${
                 isVisible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-4"
               }`}
             >
@@ -122,16 +122,16 @@ export default function HeroSection() {
             </h2>
 
             <p
-              className={`text-xl md:text-2xl text-white/95 drop-shadow-md mb-8 italic transition-all duration-700 delay-600 ${
+              className={`text-base sm:text-lg md:text-xl lg:text-2xl text-white/95 drop-shadow-md mb-6 sm:mb-8 italic transition-all duration-700 delay-600 ${
                 isVisible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-4"
               }`}
             >
               "प्रत्येक रोपट्यात एक नवं स्वप्न…"<br />
-              <span className="text-lg md:text-xl drop-shadow-md">Every plant carries a new beginning.</span>
+              <span className="text-sm sm:text-base md:text-lg lg:text-xl drop-shadow-md">Every plant carries a new beginning.</span>
             </p>
 
             <p
-              className={`text-base md:text-lg text-white/90 leading-relaxed mb-10 transition-all duration-700 delay-700 drop-shadow-md ${
+              className={`text-sm sm:text-base md:text-lg text-white/90 leading-relaxed mb-6 sm:mb-8 md:mb-10 transition-all duration-700 delay-700 drop-shadow-md ${
                 isVisible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-4"
               }`}
             >
@@ -145,7 +145,7 @@ export default function HeroSection() {
             >
               <Link
                 href="/plants/indoor"
-                className="inline-block bg-green-700/50 text-white px-12 py-4 rounded-full text-base font-medium hover:bg-green-600/60 transition-all backdrop-blur-sm border border-white/20"
+                className="inline-block bg-green-700/50 text-white px-6 sm:px-8 md:px-10 lg:px-12 py-3 sm:py-4 rounded-full text-sm sm:text-base font-medium hover:bg-green-600/60 transition-all backdrop-blur-sm border border-white/20"
               >
                 Explore Our Plants
               </Link>

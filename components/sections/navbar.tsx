@@ -13,7 +13,7 @@ import {
   NavigationMenuList,
   NavigationMenuTrigger,
 } from "@/components/ui/navigation-menu";
-import { Sheet, SheetContent, SheetTrigger } from "@/components/ui/sheet";
+import { Sheet, SheetContent, SheetHeader, SheetTitle, SheetTrigger } from "@/components/ui/sheet";
 import {
   Accordion,
   AccordionContent,
@@ -130,7 +130,10 @@ export default function Navbar() {
               side="right"
               className="w-[300px] sm:w-[400px] bg-white"
             >
-              <div className="flex flex-col space-y-4 mt-8">
+              <SheetHeader>
+                <SheetTitle className="sr-only">Navigation Menu</SheetTitle>
+              </SheetHeader>
+              <div className="flex flex-col space-y-4 mt-4">
                 <Link
                   href="/"
                   className="px-4 py-3 text-gray-700 hover:bg-green-50 hover:text-green-700 rounded-md transition-colors font-medium"

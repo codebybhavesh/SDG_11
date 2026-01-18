@@ -2,8 +2,8 @@
 
 import Image from "next/image";
 import Link from "next/link";
-import { useState } from "react";
-import { ChevronLeft, ChevronRight } from "lucide-react";
+import { useState, useEffect } from "react";
+import { ChevronLeft, ChevronRight, Pause, Play } from "lucide-react";
 import { Particles } from "@/components/ui/particles";
 
 const categories = [
@@ -41,13 +41,32 @@ export default function CategoriesSection() {
   const [currentIndex, setCurrentIndex] = useState(0);
   const [isAnimating, setIsAnimating] = useState(false);
   const [hoveredIndex, setHoveredIndex] = useState<number | null>(null);
+  const [isAutoPlaying, setIsAutoPlaying] = useState(true);
+  const [showMobileControls, setShowMobileControls] = useState(false);
   const n = categories.length;
+
+  // Auto-play functionality
+  useEffect(() => {
+    if (!isAutoPlaying) return;
+    
+    const interval = setInterval(() => {
+      if (!isAnimating) {
+        handleNavigation(1);
+      }
+    }, 2000); // Change card every 2 seconds
+    
+    return () => clearInterval(interval);
+  }, [isAutoPlaying, isAnimating]);
 
   const handleNavigation = (direction: number) => {
     if (isAnimating) return;
     setIsAnimating(true);
     setCurrentIndex((prev) => (prev + direction + n) % n);
     setTimeout(() => setIsAnimating(false), 700);
+  };
+
+  const toggleAutoPlay = () => {
+    setIsAutoPlaying(!isAutoPlaying);
   };
 
   const getCardTransform = (index: number) => {
@@ -106,9 +125,9 @@ export default function CategoriesSection() {
           </p>
         </div>
 
-        <div className="relative flex flex-col lg:flex-row items-center justify-center gap-12 lg:gap-20 z-10">
+        <div className="relative flex flex-col lg:flex-row items-center justify-center gap-8 md:gap-12 lg:gap-20 z-10">
           {/* Card Stack - Centered with Rotation Effect */}
-          <div className="relative w-full max-w-lg h-[520px] flex items-center justify-center">
+          <div className="relative w-full max-w-lg h-[400px] sm:h-[480px] md:h-[520px] flex items-center justify-center">
             {categories.map((category, index) => {
               const cardStyle = getCardTransform(index);
               const isTop = index === currentIndex;
@@ -124,7 +143,7 @@ export default function CategoriesSection() {
                 >
                   <Link
                     href={category.href}
-                    className="block relative overflow-hidden rounded-3xl h-[420px] w-[320px] group"
+                    className="block relative overflow-hidden rounded-2xl sm:rounded-3xl h-[320px] sm:h-[380px] md:h-[420px] w-[260px] sm:w-[290px] md:w-[320px] group"
                     style={{
                       boxShadow: isTop 
                         ? '0 25px 50px -12px rgba(0, 0, 0, 0.25), 0 0 0 1px rgba(255, 255, 255, 0.1)' 
@@ -152,7 +171,7 @@ export default function CategoriesSection() {
                         <div className="absolute top-0 left-0 right-0 h-20 bg-gradient-to-b from-white/10 to-transparent" />
                         
                         {/* Content */}
-                        <div className="absolute bottom-0 left-0 right-0 p-6 text-white">
+                        <div className="absolute bottom-0 left-0 right-0 p-4 sm:p-5 md:p-6 text-white">
                           <div 
                             className="transition-all duration-500"
                             style={{
@@ -160,10 +179,10 @@ export default function CategoriesSection() {
                               transform: isTop ? 'translateY(0)' : 'translateY(20px)',
                             }}
                           >
-                            <h3 className="text-2xl font-bold mb-2 tracking-tight group-hover:text-green-300 transition-colors duration-300">
+                            <h3 className="text-lg sm:text-xl md:text-2xl font-bold mb-1 sm:mb-2 tracking-tight group-hover:text-green-300 transition-colors duration-300">
                               {category.title}
                             </h3>
-                            <p className="text-white/80 text-sm leading-relaxed">
+                            <p className="text-white/80 text-xs sm:text-sm leading-relaxed">
                               {category.description}
                             </p>
                           </div>
@@ -183,22 +202,48 @@ export default function CategoriesSection() {
             })}
           </div>
 
-          {/* Info Panel with Arrows */}
-          <div className="hidden lg:block w-80">
-            <div className="space-y-6 sticky top-32">
-              <div className="text-right text-gray-500 font-medium">
-                {currentIndex + 1} / {n}
+          {/* Info Panel with Controls */}
+          <div className="w-full lg:w-80">
+            <div className="space-y-4 sm:space-y-6 sticky top-24 sm:top-32">
+              {/* Progress indicator */}
+              <div className="flex items-center justify-between sm:justify-end">
+                <div className="lg:hidden flex items-center gap-2">
+                  <button
+                    onClick={toggleAutoPlay}
+                    className="flex items-center justify-center w-8 h-8 sm:w-10 sm:h-10 rounded-full bg-green-100/20 hover:bg-green-500/20 text-green-700 hover:text-green-600 transition-all duration-300"
+                    aria-label={isAutoPlaying ? "Pause auto-play" : "Play auto-play"}
+                  >
+                    {isAutoPlaying ? (
+                      <Pause className="w-4 h-4 sm:w-5 sm:h-5" />
+                    ) : (
+                      <Play className="w-4 h-4 sm:w-5 sm:h-5" />
+                    )}
+                  </button>
+                  <button
+                    onClick={() => setShowMobileControls(!showMobileControls)}
+                    className="flex items-center justify-center w-8 h-8 sm:w-10 sm:h-10 rounded-full bg-green-100/20 hover:bg-green-500/20 text-green-700 hover:text-green-600 transition-all duration-300"
+                    aria-label="Show navigation controls"
+                  >
+                    <svg className="w-4 h-4 sm:w-5 sm:h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4 6h16M4 12h16M4 18h16" />
+                    </svg>
+                  </button>
+                </div>
+                <div className="text-sm sm:text-base text-gray-500 font-medium">
+                  {currentIndex + 1} / {n}
+                </div>
               </div>
+              
               <div>
-                <h3 className="text-2xl font-bold text-gray-900 mb-2">
+                <h3 className="text-xl sm:text-2xl font-bold text-gray-900 mb-2">
                   {categories[currentIndex].title}
                 </h3>
-                <p className="text-gray-600 mb-6">
+                <p className="text-gray-600 mb-4 sm:mb-6 text-sm sm:text-base">
                   {categories[currentIndex].description}
                 </p>
                 
-                {/* Navigation Arrows */}
-                <div className="flex gap-4">
+                {/* Navigation Controls - Desktop */}
+                <div className="hidden lg:flex gap-4">
                   <button
                     onClick={() => handleNavigation(-1)}
                     disabled={isAnimating}
@@ -206,6 +251,17 @@ export default function CategoriesSection() {
                     aria-label="Previous"
                   >
                     <ChevronLeft className="w-5 h-5" />
+                  </button>
+                  <button
+                    onClick={toggleAutoPlay}
+                    className="group flex items-center justify-center w-12 h-12 rounded-full bg-green-100/20 hover:bg-green-500/20 text-green-700 hover:text-green-600 transition-all duration-300"
+                    aria-label={isAutoPlaying ? "Pause auto-play" : "Play auto-play"}
+                  >
+                    {isAutoPlaying ? (
+                      <Pause className="w-5 h-5" />
+                    ) : (
+                      <Play className="w-5 h-5" />
+                    )}
                   </button>
                   <button
                     onClick={() => handleNavigation(1)}
@@ -216,6 +272,39 @@ export default function CategoriesSection() {
                     <ChevronRight className="w-5 h-5" />
                   </button>
                 </div>
+                
+                {/* Navigation Controls - Mobile */}
+                {(showMobileControls || isAnimating) && (
+                  <div className="lg:hidden flex gap-3 sm:gap-4 justify-center pt-2">
+                    <button
+                      onClick={() => handleNavigation(-1)}
+                      disabled={isAnimating}
+                      className="group flex items-center justify-center w-10 h-10 sm:w-12 sm:h-12 rounded-full bg-green-100/20 hover:bg-green-500/20 text-green-700 hover:text-green-600 transition-all duration-300 disabled:opacity-50 disabled:cursor-not-allowed"
+                      aria-label="Previous"
+                    >
+                      <ChevronLeft className="w-4 h-4 sm:w-5 sm:h-5" />
+                    </button>
+                    <button
+                      onClick={toggleAutoPlay}
+                      className="group flex items-center justify-center w-10 h-10 sm:w-12 sm:h-12 rounded-full bg-green-100/20 hover:bg-green-500/20 text-green-700 hover:text-green-600 transition-all duration-300"
+                      aria-label={isAutoPlaying ? "Pause auto-play" : "Play auto-play"}
+                    >
+                      {isAutoPlaying ? (
+                        <Pause className="w-4 h-4 sm:w-5 sm:h-5" />
+                      ) : (
+                        <Play className="w-4 h-4 sm:w-5 sm:h-5" />
+                      )}
+                    </button>
+                    <button
+                      onClick={() => handleNavigation(1)}
+                      disabled={isAnimating}
+                      className="group flex items-center justify-center w-10 h-10 sm:w-12 sm:h-12 rounded-full bg-green-100/20 hover:bg-green-500/20 text-green-700 hover:text-green-600 transition-all duration-300 disabled:opacity-50 disabled:cursor-not-allowed"
+                      aria-label="Next"
+                    >
+                      <ChevronRight className="w-4 h-4 sm:w-5 sm:h-5" />
+                    </button>
+                  </div>
+                )}
               </div>
             </div>
           </div>
