@@ -273,38 +273,36 @@ export default function CategoriesSection() {
                   </button>
                 </div>
                 
-                {/* Navigation Controls - Mobile */}
-                {(showMobileControls || isAnimating) && (
-                  <div className="lg:hidden flex gap-3 sm:gap-4 justify-center pt-2">
-                    <button
-                      onClick={() => handleNavigation(-1)}
-                      disabled={isAnimating}
-                      className="group flex items-center justify-center w-10 h-10 sm:w-12 sm:h-12 rounded-full bg-green-100/20 hover:bg-green-500/20 text-green-700 hover:text-green-600 transition-all duration-300 disabled:opacity-50 disabled:cursor-not-allowed"
-                      aria-label="Previous"
-                    >
-                      <ChevronLeft className="w-4 h-4 sm:w-5 sm:h-5" />
-                    </button>
-                    <button
-                      onClick={toggleAutoPlay}
-                      className="group flex items-center justify-center w-10 h-10 sm:w-12 sm:h-12 rounded-full bg-green-100/20 hover:bg-green-500/20 text-green-700 hover:text-green-600 transition-all duration-300"
-                      aria-label={isAutoPlaying ? "Pause auto-play" : "Play auto-play"}
-                    >
-                      {isAutoPlaying ? (
-                        <Pause className="w-4 h-4 sm:w-5 sm:h-5" />
-                      ) : (
-                        <Play className="w-4 h-4 sm:w-5 sm:h-5" />
-                      )}
-                    </button>
-                    <button
-                      onClick={() => handleNavigation(1)}
-                      disabled={isAnimating}
-                      className="group flex items-center justify-center w-10 h-10 sm:w-12 sm:h-12 rounded-full bg-green-100/20 hover:bg-green-500/20 text-green-700 hover:text-green-600 transition-all duration-300 disabled:opacity-50 disabled:cursor-not-allowed"
-                      aria-label="Next"
-                    >
-                      <ChevronRight className="w-4 h-4 sm:w-5 sm:h-5" />
-                    </button>
-                  </div>
-                )}
+                {/* Navigation Controls - Mobile - Always Visible */}
+                <div className="lg:hidden flex gap-3 sm:gap-4 justify-center pt-2">
+                  <button
+                    onClick={() => handleNavigation(-1)}
+                    disabled={isAnimating}
+                    className="group flex items-center justify-center w-10 h-10 sm:w-12 sm:h-12 rounded-full bg-green-100/20 hover:bg-green-500/20 text-green-700 hover:text-green-600 transition-all duration-300 disabled:opacity-50 disabled:cursor-not-allowed touch-control"
+                    aria-label="Previous"
+                  >
+                    <ChevronLeft className="w-4 h-4 sm:w-5 sm:h-5" />
+                  </button>
+                  <button
+                    onClick={toggleAutoPlay}
+                    className="group flex items-center justify-center w-10 h-10 sm:w-12 sm:h-12 rounded-full bg-green-100/20 hover:bg-green-500/20 text-green-700 hover:text-green-600 transition-all duration-300 touch-control"
+                    aria-label={isAutoPlaying ? "Pause auto-play" : "Play auto-play"}
+                  >
+                    {isAutoPlaying ? (
+                      <Pause className="w-4 h-4 sm:w-5 sm:h-5" />
+                    ) : (
+                      <Play className="w-4 h-4 sm:w-5 sm:h-5" />
+                    )}
+                  </button>
+                  <button
+                    onClick={() => handleNavigation(1)}
+                    disabled={isAnimating}
+                    className="group flex items-center justify-center w-10 h-10 sm:w-12 sm:h-12 rounded-full bg-green-100/20 hover:bg-green-500/20 text-green-700 hover:text-green-600 transition-all duration-300 disabled:opacity-50 disabled:cursor-not-allowed touch-control"
+                    aria-label="Next"
+                  >
+                    <ChevronRight className="w-4 h-4 sm:w-5 sm:h-5" />
+                  </button>
+                </div>
               </div>
             </div>
           </div>
