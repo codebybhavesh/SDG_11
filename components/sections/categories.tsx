@@ -42,7 +42,6 @@ export default function CategoriesSection() {
   const [isAnimating, setIsAnimating] = useState(false);
   const [hoveredIndex, setHoveredIndex] = useState<number | null>(null);
   const [isAutoPlaying, setIsAutoPlaying] = useState(true);
-  const [showMobileControls, setShowMobileControls] = useState(false);
   const [touchStart, setTouchStart] = useState<number | null>(null);
   const [touchEnd, setTouchEnd] = useState<number | null>(null);
   const cardStackRef = useRef<HTMLDivElement>(null);
@@ -68,9 +67,7 @@ export default function CategoriesSection() {
     setTimeout(() => setIsAnimating(false), 700);
   };
 
-  const toggleAutoPlay = () => {
-    setIsAutoPlaying(!isAutoPlaying);
-  };
+
 
   // Touch handling for mobile swipe
   const handleTouchStart = (e: React.TouchEvent) => {
@@ -161,18 +158,7 @@ export default function CategoriesSection() {
             onTouchMove={handleTouchMove}
             onTouchEnd={handleTouchEnd}
           >
-            {/* Swipe hint for mobile users */}
-            <div className="lg:hidden absolute top-4 left-1/2 transform -translate-x-1/2 z-20">
-              <div className="swipe-hint bg-black/20 backdrop-blur-sm rounded-full px-3 py-1 text-white text-xs flex items-center gap-1 mobile-swipe-area">
-                <svg className="w-3 h-3" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 19l-7-7 7-7" />
-                </svg>
-                Swipe
-                <svg className="w-3 h-3" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
-                </svg>
-              </div>
-            </div>
+
             {categories.map((category, index) => {
               const cardStyle = getCardTransform(index);
               const isTop = index === currentIndex;
@@ -250,34 +236,7 @@ export default function CategoriesSection() {
           {/* Info Panel with Controls */}
           <div className="w-full lg:w-80">
             <div className="space-y-4 sm:space-y-6 sticky top-24 sm:top-32">
-              {/* Progress indicator */}
-              <div className="flex items-center justify-between sm:justify-end">
-                <div className="lg:hidden flex items-center gap-2">
-                  <button
-                    onClick={toggleAutoPlay}
-                    className="flex items-center justify-center w-8 h-8 sm:w-10 sm:h-10 rounded-full bg-green-100/20 hover:bg-green-500/20 text-green-700 hover:text-green-600 transition-all duration-300"
-                    aria-label={isAutoPlaying ? "Pause auto-play" : "Play auto-play"}
-                  >
-                    {isAutoPlaying ? (
-                      <Pause className="w-4 h-4 sm:w-5 sm:h-5" />
-                    ) : (
-                      <Play className="w-4 h-4 sm:w-5 sm:h-5" />
-                    )}
-                  </button>
-                  <button
-                    onClick={() => setShowMobileControls(!showMobileControls)}
-                    className="flex items-center justify-center w-8 h-8 sm:w-10 sm:h-10 rounded-full bg-green-100/20 hover:bg-green-500/20 text-green-700 hover:text-green-600 transition-all duration-300"
-                    aria-label="Show navigation controls"
-                  >
-                    <svg className="w-4 h-4 sm:w-5 sm:h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4 6h16M4 12h16M4 18h16" />
-                    </svg>
-                  </button>
-                </div>
-                <div className="text-sm sm:text-base text-gray-500 font-medium">
-                  {currentIndex + 1} / {n}
-                </div>
-              </div>
+
               
               <div>
                 <h3 className="text-xl sm:text-2xl font-bold text-gray-900 mb-2">
@@ -298,17 +257,6 @@ export default function CategoriesSection() {
                     <ChevronLeft className="w-5 h-5" />
                   </button>
                   <button
-                    onClick={toggleAutoPlay}
-                    className="group flex items-center justify-center w-12 h-12 rounded-full bg-green-100/20 hover:bg-green-500/20 text-green-700 hover:text-green-600 transition-all duration-300"
-                    aria-label={isAutoPlaying ? "Pause auto-play" : "Play auto-play"}
-                  >
-                    {isAutoPlaying ? (
-                      <Pause className="w-5 h-5" />
-                    ) : (
-                      <Play className="w-5 h-5" />
-                    )}
-                  </button>
-                  <button
                     onClick={() => handleNavigation(1)}
                     disabled={isAnimating}
                     className="group flex items-center justify-center w-12 h-12 rounded-full bg-green-100/20 hover:bg-green-500/20 text-green-700 hover:text-green-600 transition-all duration-300 disabled:opacity-50 disabled:cursor-not-allowed"
@@ -327,17 +275,6 @@ export default function CategoriesSection() {
                     aria-label="Previous"
                   >
                     <ChevronLeft className="w-4 h-4 sm:w-5 sm:h-5" />
-                  </button>
-                  <button
-                    onClick={toggleAutoPlay}
-                    className="group flex items-center justify-center w-10 h-10 sm:w-12 sm:h-12 rounded-full bg-green-100/20 hover:bg-green-500/20 text-green-700 hover:text-green-600 transition-all duration-300 touch-control"
-                    aria-label={isAutoPlaying ? "Pause auto-play" : "Play auto-play"}
-                  >
-                    {isAutoPlaying ? (
-                      <Pause className="w-4 h-4 sm:w-5 sm:h-5" />
-                    ) : (
-                      <Play className="w-4 h-4 sm:w-5 sm:h-5" />
-                    )}
                   </button>
                   <button
                     onClick={() => handleNavigation(1)}
