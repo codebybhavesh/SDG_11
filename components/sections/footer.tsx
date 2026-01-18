@@ -56,16 +56,16 @@ export default function Footer() {
               <li className="flex items-start space-x-3">
                 <MapPin className="w-5 h-5 text-green-400 flex-shrink-0 mt-1" />
                 <span className="text-sm">
-                  123 Green Street, Garden City, GC 12345
+                  Infront of Blossom Convent School , Vallivali , Barvi Dam Road, Badlapur 421 503
                 </span>
               </li>
               <li className="flex items-center space-x-3">
                 <Phone className="w-5 h-5 text-green-400 flex-shrink-0" />
-                <span className="text-sm">+91 98765 43210</span>
+                <span className="text-sm">+91 9699140860</span>
               </li>
               <li className="flex items-center space-x-3">
                 <Mail className="w-5 h-5 text-green-400 flex-shrink-0" />
-                <span className="text-sm">info@durvankurgreens.com</span>
+                <span className="text-sm">shreedurvankur33@gmail.com</span>
               </li>
             </ul>
           </div>

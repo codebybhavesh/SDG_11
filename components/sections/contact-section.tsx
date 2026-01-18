@@ -30,9 +30,7 @@ export default function ContactSection() {
                 <div>
                   <h4 className="text-lg font-semibold text-gray-900 mb-1">Address</h4>
                   <p className="text-gray-600">
-                    123 Green Street<br />
-                    Garden City, GC 12345<br />
-                    India
+                    Infront of Blossom Convent School , Vallivali , Barvi Dam Road, Badlapur 421 503
                   </p>
                 </div>
               </div>
@@ -43,8 +41,7 @@ export default function ContactSection() {
                 </div>
                 <div>
                   <h4 className="text-lg font-semibold text-gray-900 mb-1">Phone</h4>
-                  <p className="text-gray-600">+91 98765 43210</p>
-                  <p className="text-gray-600">+91 98765 43211</p>
+                  <p className="text-gray-600">+91 9699140860</p>
                 </div>
               </div>
 
@@ -54,23 +51,11 @@ export default function ContactSection() {
                 </div>
                 <div>
                   <h4 className="text-lg font-semibold text-gray-900 mb-1">Email</h4>
-                  <p className="text-gray-600">info@durvankurgreens.com</p>
-                  <p className="text-gray-600">support@durvankurgreens.com</p>
+                  <p className="text-gray-600">shreedurvankur33@gmail.com</p>
                 </div>
               </div>
 
-              <div className="flex items-start space-x-4">
-                <div className="w-12 h-12 bg-green-100 rounded-full flex items-center justify-center flex-shrink-0">
-                  <Clock className="w-6 h-6 text-green-600" />
-                </div>
-                <div>
-                  <h4 className="text-lg font-semibold text-gray-900 mb-1">
-                    Business Hours
-                  </h4>
-                  <p className="text-gray-600">Monday - Saturday: 8:00 AM - 7:00 PM</p>
-                  <p className="text-gray-600">Sunday: 9:00 AM - 5:00 PM</p>
-                </div>
-              </div>
+
             </div>
           </div>
 

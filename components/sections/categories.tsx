@@ -2,7 +2,7 @@
 
 import Image from "next/image";
 import Link from "next/link";
-import { useState, useEffect } from "react";
+import { useState, useEffect, useRef } from "react";
 import { ChevronLeft, ChevronRight, Pause, Play } from "lucide-react";
 import { Particles } from "@/components/ui/particles";
 
@@ -43,6 +43,9 @@ export default function CategoriesSection() {
   const [hoveredIndex, setHoveredIndex] = useState<number | null>(null);
   const [isAutoPlaying, setIsAutoPlaying] = useState(true);
   const [showMobileControls, setShowMobileControls] = useState(false);
+  const [touchStart, setTouchStart] = useState<number | null>(null);
+  const [touchEnd, setTouchEnd] = useState<number | null>(null);
+  const cardStackRef = useRef<HTMLDivElement>(null);
   const n = categories.length;
 
   // Auto-play functionality
@@ -67,6 +70,30 @@ export default function CategoriesSection() {
 
   const toggleAutoPlay = () => {
     setIsAutoPlaying(!isAutoPlaying);
+  };
+
+  // Touch handling for mobile swipe
+  const handleTouchStart = (e: React.TouchEvent) => {
+    setTouchEnd(null);
+    setTouchStart(e.targetTouches[0].clientX);
+  };
+
+  const handleTouchMove = (e: React.TouchEvent) => {
+    setTouchEnd(e.targetTouches[0].clientX);
+  };
+
+  const handleTouchEnd = () => {
+    if (!touchStart || !touchEnd) return;
+    
+    const distance = touchStart - touchEnd;
+    const isLeftSwipe = distance > 50;
+    const isRightSwipe = distance < -50;
+    
+    if (isLeftSwipe) {
+      handleNavigation(1); // Next card
+    } else if (isRightSwipe) {
+      handleNavigation(-1); // Previous card
+    }
   };
 
   const getCardTransform = (index: number) => {
@@ -127,7 +154,25 @@ export default function CategoriesSection() {
 
         <div className="relative flex flex-col lg:flex-row items-center justify-center gap-8 md:gap-12 lg:gap-20 z-10">
           {/* Card Stack - Centered with Rotation Effect */}
-          <div className="relative w-full max-w-lg h-[400px] sm:h-[480px] md:h-[520px] flex items-center justify-center">
+          <div 
+            ref={cardStackRef}
+            className="relative w-full max-w-lg h-[400px] sm:h-[480px] md:h-[520px] flex items-center justify-center touch-pan-y"
+            onTouchStart={handleTouchStart}
+            onTouchMove={handleTouchMove}
+            onTouchEnd={handleTouchEnd}
+          >
+            {/* Swipe hint for mobile users */}
+            <div className="lg:hidden absolute top-4 left-1/2 transform -translate-x-1/2 z-20">
+              <div className="swipe-hint bg-black/20 backdrop-blur-sm rounded-full px-3 py-1 text-white text-xs flex items-center gap-1 mobile-swipe-area">
+                <svg className="w-3 h-3" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 19l-7-7 7-7" />
+                </svg>
+                Swipe
+                <svg className="w-3 h-3" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
+                </svg>
+              </div>
+            </div>
             {categories.map((category, index) => {
               const cardStyle = getCardTransform(index);
               const isTop = index === currentIndex;
